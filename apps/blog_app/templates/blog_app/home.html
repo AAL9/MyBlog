@@ -1,0 +1,5 @@
+{%extends 'main.html'%} {%block content%}
+{% for title in titles %}
+<li><a href="{% url 'post_page' title.id %}">{{title.title}}</a></li>
+{%endfor%}
+{%endblock content%}

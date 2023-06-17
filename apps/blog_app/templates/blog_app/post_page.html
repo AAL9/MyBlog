@@ -1,0 +1,16 @@
+{%extends 'main.html'%} {%block content%}
+<h2>{{post.title}}</h2>
+<p>{{post.body}}</p>
+<h3>Created at {{post.post_date}}</h3>
+<h1>Comments:</h1>
+{%for comment in comments%}
+<p>{{comment.comment}}</p>
+<p>{{comment.post_date}}</p>
+<p>_____________________________</p>
+{%endfor%}
+<form action="{% url 'post_page' post.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="OK">
+</form>
+{%endblock content%}
