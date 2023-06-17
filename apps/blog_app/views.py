@@ -28,22 +28,14 @@ def PostPage(request,post_id):
 
 
 def Publsih(request):
-    if request.method == "POST":
-        # create a form instance and populate it with data from the request:
+    if request.method == "POST":    
         form = PostBlog(request.POST)
-        # check whether it's valid:
         if form.is_valid():
-            #form.save()
             title = form.cleaned_data ["title"]
             body = form.cleaned_data ["body"]
             print("THIS IS THE TITLE & BODY: ",title, body)
             Post.objects.create(title= title, body = body)
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
             return HttpResponseRedirect("/")
-
-    # if a GET (or any other method) we'll create a blank form
     else:
         form = PostBlog()
     context = {'form' : form}
