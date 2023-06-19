@@ -6,12 +6,12 @@ from .forms import PostBlog, PostComment
 # Create your views here.
 
 
-def Home(request):
+def home(request):
     context = {"titles": Post.objects.all()}
     return render(request, "blog_app/home.html", context)
 
 
-def PostPage(request, post_id):
+def post_page(request, post_id):
     form = PostComment(request.POST)
     post = Post.objects.get(id=post_id)
     context = {
@@ -29,7 +29,7 @@ def PostPage(request, post_id):
     return render(request, "blog_app/post_page.html", context)
 
 
-def Publsih(request):
+def publish(request):
     if request.method == "POST":
         form = PostBlog(request.POST)
         if form.is_valid():
