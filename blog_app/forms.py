@@ -1,5 +1,7 @@
 from django import forms
-from .models import Post
+#from .models import Post
+
+from posts_app.models import Post
 
 
 class PostBlog(forms.Form):
