@@ -2,20 +2,4 @@
 {% for title in titles %}
 <li><a href="{% url 'post_page' title.id %}">{{title.title}}</a></li>
 {%endfor%}
-</li>
-{% if user.is_authenticated %}
-<li class="nav-item">
-  <a class="nav-link" href="">Hi, {{user.first_name}}</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="{%url 'logout_user'%}">LOGOUT</a>
-</li>
-{% else %}
-<li class="nav-item">
-  <a class="nav-link" href="{%url 'register_user'%}">SIGN UP</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="{%url 'login_user'%}">LOGIN</a>
-</li>
-{% endif %}
 {%endblock content%}

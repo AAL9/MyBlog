@@ -6,8 +6,21 @@
     <title>My Blog</title>
 </head>
 <body>
-    <a href="/">HOME</a><br>
-    <a href="/publish">PUBLISH A NEW POST</a>
+    <table>
+        <tr>
+          <td>
+            <a href="/">HOME</a><br>
+            <a href="/publish">PUBLISH A NEW POST</a> <br><br>
+            {% if user.is_authenticated %}
+            <a href="" class="nav-link">Hi, {{user.first_name}}</a>
+            <a href="{% url 'logout_user' %}" class="nav-link">LOGOUT</a>
+            {% else %}
+            <a href="{% url 'register_user' %}" class="nav-link">SIGN UP</a>
+            <a href="{% url 'login_user' %}" class="nav-link">LOGIN</a>
+            {% endif %}
+          </td>
+        </tr>
+      </table>
     <h1>Welcome</h1>
     {%block content%} {%endblock content%}
 </body>
