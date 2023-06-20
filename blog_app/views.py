@@ -1,9 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-#from .models import Post, Comment
 from posts_app.models import Post
 from comments_app.models import Comment
 from .forms import PostBlog, PostComment
+
+# TESTING auth
+from django.contrib.auth.models import Permission, User
+
+#
 
 # Create your views here.
 

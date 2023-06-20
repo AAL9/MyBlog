@@ -5,17 +5,17 @@
 </li>
 {% if user.is_authenticated %}
 <li class="nav-item">
-  <a class="nav-link" href="#">Hi, {{user.first_name}}</a>
+  <a class="nav-link" href="">Hi, {{user.first_name}}</a>
 </li>
 <li class="nav-item">
   <!-- <a class="nav-link" href="logout_user">LOGOUT</a> -->
 </li>
 {% else %}
 <li class="nav-item">
-  <!-- <a class="nav-link" href="register">SIGN UP</a> -->
+  <a class="nav-link" href="{%url 'register_user'%}">SIGN UP</a>
 </li>
 <li class="nav-item">
-  <!-- <a class="nav-link" href="login_user">LOGIN</a> -->
+  <a class="nav-link" href="{%url 'login_user'%}">LOGIN</a>
 </li>
 {% endif %}
 {%endblock content%}
