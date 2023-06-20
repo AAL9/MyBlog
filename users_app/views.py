@@ -55,3 +55,8 @@ def login_user(request):
 
     else:
         return render(request, "users_app/login.html")
+
+
+def logout_user(request):
+    auth.logout(request)
+    return redirect("/")
