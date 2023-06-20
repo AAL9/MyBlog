@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, auth
 
 def register_user(request):
     if request.method == 'POST':
@@ -23,7 +23,7 @@ def register_user(request):
                                         email=email, first_name=first_name, last_name=last_name)
                 user.save()
                 
-                return redirect('')
+                return redirect('/')
 
 
         else:
@@ -34,3 +34,21 @@ def register_user(request):
     else:
         return render(request, 'users_app/register.html')
 
+def login_user(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/')
+        else:
+            messages.info(request, 'Invalid Username or Password')
+            return redirect('/account/login')
+
+
+
+    else:
+        return render(request, 'users_app/login.html')
