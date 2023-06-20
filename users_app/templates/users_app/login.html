@@ -15,6 +15,7 @@
         <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
     </div>
     <button type="submit" class="btn btn-primary">LOGIN</button>
+    <a href="{% url 'register_user' %}">SIGN UP</a>
     <br />
     <div class="form-group">
         {% for message in messages %}
