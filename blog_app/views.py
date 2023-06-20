@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from posts_app.models import Post
 from comments_app.models import Comment
 from .forms import PostBlog, PostComment
+from django.contrib.auth.models import User, auth
 
 # Create your views here.
 
@@ -16,7 +17,8 @@ def post_page(request, post_id):
     form = PostComment(request.POST)
     post = Post.objects.get(id=post_id)
     context = {
-        "post": Post.objects.get(id=post_id),
+        "post": post,
+        "author": User.objects.get(id=post.post_owner_id),
         "comments": Comment.objects.filter(post=post_id),
         "form": form,
     }
@@ -37,7 +39,7 @@ def publish(request):
             title = form.cleaned_data["title"]
             body = form.cleaned_data["body"]
             print("THIS IS THE TITLE & BODY: ", title, body)
-            Post.objects.create(title=title, body=body)
+            Post.objects.create(post_owner_id = request.user.id,title=title, body=body)
             return HttpResponseRedirect("/")
     else:
         form = PostBlog()

@@ -1,6 +1,6 @@
 {%extends 'main.html'%} {%block content%}
 <h1>Publish a blog</h1>
-<form action="/publish" method="post">
+<form action="{% url 'publish_page'%}" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="OK">
