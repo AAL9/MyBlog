@@ -73,9 +73,20 @@ def control_posts(request):
             title = form.cleaned_data["title"]
             body = form.cleaned_data["body"]
             if request.POST.get("publish"):
-                Post.objects.create(post_owner_id = request.user.id,title=title, body=body,last_update_date=timezone.now(),publish_date=timezone.now())
+                Post.objects.create(
+                    post_owner_id=request.user.id,
+                    title=title,
+                    body=body,
+                    last_update_date=timezone.now(),
+                    publish_date=timezone.now(),
+                )
             elif request.POST.get("save"):
-                Post.objects.create(post_owner_id = request.user.id,title=title, body=body,last_update_date=timezone.now())
+                Post.objects.create(
+                    post_owner_id=request.user.id,
+                    title=title,
+                    body=body,
+                    last_update_date=timezone.now(),
+                )
             return redirect("/")
     else:
         form = PostBlog()

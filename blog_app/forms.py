@@ -5,7 +5,7 @@ from posts_app.models import Post
 
 class PostBlog(forms.Form):
     title = forms.CharField(label="Title of the Blog", max_length=100)
-    body = forms.CharField(label="Body of the Blog",widget=forms.Textarea())
+    body = forms.CharField(label="Body of the Blog", widget=forms.Textarea())
 
 
 class PostComment(forms.Form):
