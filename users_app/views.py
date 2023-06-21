@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
@@ -71,8 +72,10 @@ def control_posts(request):
         if form.is_valid():
             title = form.cleaned_data["title"]
             body = form.cleaned_data["body"]
-            print("THIS IS THE TITLE & BODY: ", title, body)
-            Post.objects.create(post_owner_id = request.user.id,title=title, body=body)
+            if request.POST.get("publish"):
+                Post.objects.create(post_owner_id = request.user.id,title=title, body=body,last_update_date=timezone.now(),publish_date=timezone.now())
+            elif request.POST.get("save"):
+                Post.objects.create(post_owner_id = request.user.id,title=title, body=body,last_update_date=timezone.now())
             return redirect("/")
     else:
         form = PostBlog()
