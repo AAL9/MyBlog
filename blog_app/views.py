@@ -30,18 +30,3 @@ def post_page(request, post_id):
         return HttpResponseRedirect("/post/" + str(post_id))
 
     return render(request, "blog_app/post_page.html", context)
-
-
-def publish(request):
-    if request.method == "POST":
-        form = PostBlog(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data["title"]
-            body = form.cleaned_data["body"]
-            print("THIS IS THE TITLE & BODY: ", title, body)
-            Post.objects.create(post_owner_id = request.user.id,title=title, body=body)
-            return HttpResponseRedirect("/")
-    else:
-        form = PostBlog()
-    context = {"form": form}
-    return render(request, "blog_app/publish_page.html", context)

@@ -1,6 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
+from blog_app.forms import PostBlog
+
+from posts_app.models import Post
 
 
 def register_user(request):
@@ -60,3 +63,18 @@ def login_user(request):
 def logout_user(request):
     auth.logout(request)
     return redirect("/")
+
+
+def control_posts(request):
+    if request.method == "POST":
+        form = PostBlog(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            body = form.cleaned_data["body"]
+            print("THIS IS THE TITLE & BODY: ", title, body)
+            Post.objects.create(post_owner_id = request.user.id,title=title, body=body)
+            return redirect("/")
+    else:
+        form = PostBlog()
+    context = {"form": form}
+    return render(request, "users_app/control_posts.html", context)
