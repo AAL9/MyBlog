@@ -10,11 +10,19 @@
 </form>
 </div>
 <div>
-<h1>Edit a posts</h1>
-{%for post in user_posts%}
+<h1>Edit published posts</h1>
+{%for post in published_user_posts%}
 <li>
 <a href="{%url 'edit_post' post.id%}">{{post.title}}</a>
 </li>
 {%endfor%}
 </div>
+<div>
+    <h1>Edit drafts</h1>
+    {%for post in drafts%}
+    <li>
+    <a href="{%url 'edit_post' post.id%}">{{post.title}}</a>
+    </li>
+    {%endfor%}
+    </div>
 {%endblock content%}

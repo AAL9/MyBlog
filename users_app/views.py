@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from blog_app.forms import PostBlog
+from blog_app.forms import PostBlog, EditPost
 
 from posts_app.models import Post
 
@@ -90,16 +90,43 @@ def control_posts(request):
             return redirect("/")
     else:
         form = PostBlog()
-    context = {"form": form,
-               "user_posts":Post.objects.filter(post_owner_id=request.user.id)
-               }
+    context = {
+        "form": form,
+        "published_user_posts": Post.objects.filter(
+            post_owner_id=request.user.id, publish_date__isnull=False
+        ),
+        "drafts": Post.objects.filter(
+            post_owner_id=request.user.id, publish_date__isnull=True
+        ),
+    }
     return render(request, "users_app/control_posts.html", context)
 
 
-
-def edit_post(request,post_id):
+def edit_post(request, post_id):
     post = Post.objects.get(id=post_id)
+    form = EditPost(
+        request.POST or None, initial={"title": post.title, "body": post.body}
+    )
     context = {
-        "post" : post,
+        "post": post,
+        "form": form,
     }
-    return render(request,"users_app/edit_post.html",context)
+    if form.is_valid():
+        title = form.cleaned_data["title"]
+        body = form.cleaned_data["body"]
+        if request.POST.get("publish"):
+            Post.objects.filter(id=post_id, post_owner_id=request.user.id).update(
+                title=title,
+                body=body,
+                last_update_date=timezone.now(),
+                publish_date=timezone.now(),
+            )
+        elif request.POST.get("save"):
+            Post.objects.filter(id=post_id, post_owner_id=request.user.id).update(
+                title=title,
+                body=body,
+                last_update_date=timezone.now(),
+            )
+
+        return redirect("/")
+    return render(request, "users_app/edit_post.html", context)

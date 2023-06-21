@@ -10,3 +10,12 @@ class PostBlog(forms.Form):
 
 class PostComment(forms.Form):
     comment = forms.CharField(label="Comment")
+
+
+class EditPost(forms.Form):
+    title = forms.CharField(
+        label="Title of the Blog", max_length=100, initial="the title"
+    )
+    body = forms.CharField(
+        label="Body of the Blog", widget=forms.Textarea(), initial="the body"
+    )
