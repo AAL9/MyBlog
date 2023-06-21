@@ -90,5 +90,16 @@ def control_posts(request):
             return redirect("/")
     else:
         form = PostBlog()
-    context = {"form": form}
+    context = {"form": form,
+               "user_posts":Post.objects.filter(post_owner_id=request.user.id)
+               }
     return render(request, "users_app/control_posts.html", context)
+
+
+
+def edit_post(request,post_id):
+    post = Post.objects.get(id=post_id)
+    context = {
+        "post" : post,
+    }
+    return render(request,"users_app/edit_post.html",context)

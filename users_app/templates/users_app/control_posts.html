@@ -1,4 +1,5 @@
-{%extends 'main.html'%} {%block content%}
+{%extends 'main.html'%} 
+{%block content%}
 <div>
 <h1>Publish a new post</h1>
 <form action="{% url 'control_posts'%}" method="post">
@@ -9,6 +10,11 @@
 </form>
 </div>
 <div>
-<h1>Edit a post</h1>
+<h1>Edit a posts</h1>
+{%for post in user_posts%}
+<li>
+<a href="{%url 'edit_post' post.id%}">{{post.title}}</a>
+</li>
+{%endfor%}
 </div>
 {%endblock content%}
