@@ -8,15 +8,19 @@ from posts_app.models import Post
 
 
 def register_user(request):
-    if request.method == "POST":
+    if (not request.method == "POST") or None:
+        return render(request, "users_app/register.html")
+    else:
         first_name = request.POST["first_name"]
         last_name = request.POST["last_name"]
         username = request.POST["username"]
         email = request.POST["email"]
         password = request.POST["password"]
         confirm_password = request.POST["confirm_password"]
-
-        if password == confirm_password:
+        if password != confirm_password:
+            messages.info(request, "Both passwords are not matching")
+            return redirect(register_user)
+        else:
             if User.objects.filter(username=username).exists():
                 messages.info(request, "Username is already taken")
                 return redirect(register_user)
@@ -34,13 +38,6 @@ def register_user(request):
                 user.save()
 
                 return redirect("/")
-
-        else:
-            messages.info(request, "Both passwords are not matching")
-            return redirect(register_user)
-
-    else:
-        return render(request, "users_app/register.html")
 
 
 def login_user(request):
