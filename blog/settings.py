@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "posts_app",
     "comments_app",
     "users_app",
+    "background_task",
 ]
 
 MIDDLEWARE = [

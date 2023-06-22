@@ -20,7 +20,7 @@ def register_user(request):
         if password != confirm_password:
             messages.info(request, "Both passwords are not matching")
             return redirect(register_user)
-        else:
+        else:  # this check is needed. If not provided, the page will crash
             if User.objects.filter(username=username).exists():
                 messages.info(request, "Username is already taken")
                 return redirect(register_user)
@@ -41,7 +41,9 @@ def register_user(request):
 
 
 def login_user(request):
-    if request.method == "POST":
+    if (not request.method == "POST") or None:
+        return render(request, "users_app/login.html")
+    else:
         username = request.POST["username"]
         password = request.POST["password"]
 
@@ -53,9 +55,6 @@ def login_user(request):
         else:
             messages.info(request, "Invalid Username or Password")
             return redirect("/account/login")
-
-    else:
-        return render(request, "users_app/login.html")
 
 
 def logout_user(request):
