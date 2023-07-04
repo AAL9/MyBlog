@@ -11,3 +11,4 @@ class Post(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     publish_date = models.DateTimeField(auto_now_add=False, blank=True, null=True)
     last_update_date = models.DateTimeField(auto_now_add=False)
+    scheduled = models.BooleanField(default=False)
