@@ -1,8 +1,10 @@
 import datetime
+from django.http import HttpResponse
 from django.shortcuts import render
 
+from .tasks import scheduled_task
 # Create your views here.
-from .tasks import my_scheduled_task
-def register_task():
-    # Schedule the task to run every day at 8:00 AM
-    my_scheduled_task.schedule(repeat=Task.DAILY, time=datetime.time(hour=8, minute=0))
+
+def index(request):
+    scheduled_task.delay()
+    #return HttpResponse("Hi there!")
