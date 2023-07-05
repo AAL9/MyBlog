@@ -2,15 +2,16 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from posts_app.models import Post
 from comments_app.models import Comment
-from .forms import PostBlog, PostComment
+from .forms import PostComment
 from django.contrib.auth.models import User, auth
-from posts_app import views
 
 # Create your views here.
 
 
 def home(request):
-    context = {"titles": Post.objects.filter(publish_date__isnull=False)}
+    context = {
+        "titles": Post.objects.filter(publish_date__isnull=False, scheduled=False)
+    }
     return render(request, "blog_app/home.html", context)
 
 

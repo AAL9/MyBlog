@@ -8,7 +8,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     "check-scheduled-posts-every-5-seconds": {
-        "task": "posts_app.tasks.printing",
+        "task": "posts_app.tasks.update_posts",
         "schedule": 5,
     },
 }
