@@ -136,15 +136,6 @@ STATICFILES_DIRS = [BASE_DIR / "static/blog_app"]
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-#CELERY SETTINGS
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_BEAT_SCHEDULE = {
-    'task_one' : {
-        'task' : 'posts_app.tasks.scheduled_task',
-        'schedule': 100,
-    }
-}
+# CELERY SETTINGS
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
