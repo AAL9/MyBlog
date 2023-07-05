@@ -12,9 +12,10 @@ def home(request):
     context = {
         "titles": Post.objects.filter(publish_date__isnull=False, scheduled=False)
     }
-    return render(request, "blog_app/home.html", context)
+    return render(request, "home/home.html", context)
 
 
+# this should go to the posts app
 def post_page(request, post_id):
     form = PostComment(request.POST)
     post = Post.objects.get(id=post_id)
@@ -32,6 +33,6 @@ def post_page(request, post_id):
 
             return HttpResponseRedirect("/post/" + str(post_id))
 
-        return render(request, "blog_app/post_page.html", context)
+        return render(request, "home/post_page.html", context)
     else:
         return HttpResponse("ERROR!!")

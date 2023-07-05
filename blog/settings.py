@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from django.utils import timezone
 import os
 from pathlib import Path
 import environ
@@ -40,7 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "blog_app",
+    "home",
     "posts_app",
     "comments_app",
     "users_app",
@@ -116,11 +117,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Riyadh"
 
 USE_I18N = True
 
 USE_TZ = True
+if USE_TZ:
+    timezone.activate(TIME_ZONE)
 
 
 # Static files (CSS, JavaScript, Images)
@@ -128,7 +131,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static/")
-STATICFILES_DIRS = [BASE_DIR / "static/blog_app"]
+STATICFILES_DIRS = [BASE_DIR / "static/home"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -2,7 +2,7 @@ from django.utils import timezone
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from blog_app.forms import PostBlog, EditPost
+from home.forms import PostBlog, EditPost
 from datetime import datetime
 from posts_app.models import Post
 

@@ -3,16 +3,15 @@ from celery import shared_task
 from blog.celery import app
 from .models import Post
 from django.utils import timezone
+from blog.settings import TIME_ZONE
 
-
-# @app.task
-# def printing():
-#     print("PRINTING PRINTING")
+timezone.activate(TIME_ZONE)
 
 
 @app.task
 def update_posts():
     current_datetime = timezone.now()
+    print("This is executed at:", timezone.now())
 
     scheduled_posts = Post.objects.filter(scheduled=True)
 
