@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
 from home.forms import PostBlog, EditPost
 from datetime import datetime
-from posts_app.models import Post
+from posts.models import Post
 
 
 def register_user(request):

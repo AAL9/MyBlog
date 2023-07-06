@@ -1,5 +1,5 @@
 from django.db import models
-from posts_app.models import Post
+from posts.models import Post
 
 # Create your models here.
 

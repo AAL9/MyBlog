@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from posts_app.models import Post
-from comments_app.models import Comment
+from posts.models import Post
+from comments.models import Comment
 from .forms import PostComment
 from django.contrib.auth.models import User, auth
 

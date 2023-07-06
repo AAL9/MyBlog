@@ -9,7 +9,7 @@ app.autodiscover_tasks()
 
 app.conf.beat_schedule = {
     "check-scheduled-posts-every-minute": {
-        "task": "posts_app.tasks.update_posts",
+        "task": "posts.tasks.update_posts",
         # "schedule": crontab(minute='*/1'),
         "schedule": 5,
     },

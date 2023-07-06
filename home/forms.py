@@ -1,6 +1,6 @@
 from django import forms
 
-from posts_app.models import Post
+from posts.models import Post
 from django.utils import timezone
 
 

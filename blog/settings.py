@@ -42,9 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "home",
-    "posts_app",
-    "comments_app",
+    "posts",
+    "comments",
     "users_app",
+    "django_rename_app",
 ]
 
 MIDDLEWARE = [
