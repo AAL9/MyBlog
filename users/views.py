@@ -67,36 +67,36 @@ def control_posts(request):
         form = PostBlog(request.POST)
         if form.is_valid():
             title = form.cleaned_data["title"]
-            body = form.cleaned_data["body"]
-            publish_date = datetime.combine(
+            content = form.cleaned_data["content"]
+            publish_datetime = datetime.combine(
                 form.cleaned_data["scheduled_date"], form.cleaned_data["scheduled_time"]
             )
-            publish_date_aware = timezone.make_aware(
-                publish_date, timezone.get_current_timezone()
+            publish_datetime_aware = timezone.make_aware(
+                publish_datetime, timezone.get_current_timezone()
             )
-            scheduled = False
-            if publish_date_aware > timezone.now():
-                scheduled = True
+            is_scheduled = False
+            if publish_datetime_aware > timezone.now():
+                is_scheduled = True
             else:
-                publish_date = timezone.now()
-                scheduled = False
+                publish_datetime = timezone.now()
+                is_scheduled = False
 
             if request.POST.get("publish"):
                 Post.objects.create(
-                    post_owner_id=request.user.id,
+                    owner_id=request.user.id,
                     title=title,
-                    body=body,
-                    last_update_date=timezone.now(),
-                    publish_date=publish_date,
-                    scheduled=scheduled,
+                    content=content,
+                    last_updated_at=timezone.now(),
+                    publish_datetime=publish_datetime,
+                    is_scheduled=is_scheduled,
                 )
             elif request.POST.get("save"):
                 Post.objects.create(
-                    post_owner_id=request.user.id,
+                    owner_id=request.user.id,
                     title=title,
-                    body=body,
-                    last_update_date=timezone.now(),
-                    scheduled=scheduled,
+                    content=content,
+                    last_updated_at=timezone.now(),
+                    is_scheduled=is_scheduled,
                 )
             return redirect("/")
     else:
@@ -104,10 +104,10 @@ def control_posts(request):
     context = {
         "form": form,
         "published_user_posts": Post.objects.filter(
-            post_owner_id=request.user.id, publish_date__isnull=False
+            owner_id=request.user.id, publish_datetime__isnull=False
         ),
         "drafts": Post.objects.filter(
-            post_owner_id=request.user.id, publish_date__isnull=True
+            owner_id=request.user.id, publish_datetime__isnull=True
         ),
     }
     return render(request, "users/control_posts.html", context)
@@ -116,7 +116,7 @@ def control_posts(request):
 def edit_post(request, post_id):
     post = Post.objects.get(id=post_id)
     form = EditPost(
-        request.POST or None, initial={"title": post.title, "body": post.body}
+        request.POST or None, initial={"title": post.title, "content": post.content}
     )
     context = {
         "post": post,
@@ -124,32 +124,32 @@ def edit_post(request, post_id):
     }
     if form.is_valid():
         title = form.cleaned_data["title"]
-        body = form.cleaned_data["body"]
-        publish_date = datetime.combine(
+        content = form.cleaned_data["content"]
+        publish_datetime = datetime.combine(
             form.cleaned_data["scheduled_date"], form.cleaned_data["scheduled_time"]
         )
-        publish_date_aware = timezone.make_aware(
-            publish_date, timezone.get_current_timezone()
+        publish_datetime_aware = timezone.make_aware(
+            publish_datetime, timezone.get_current_timezone()
         )
-        scheduled = False
-        if publish_date_aware > timezone.now():
-            scheduled = True
+        is_scheduled = False
+        if publish_datetime_aware > timezone.now():
+            is_scheduled = True
         else:
-            publish_date = timezone.now()
-            scheduled = False
+            publish_datetime = timezone.now()
+            is_scheduled = False
         if request.POST.get("publish"):
-            Post.objects.filter(id=post_id, post_owner_id=request.user.id).update(
+            Post.objects.filter(id=post_id, owner_id=request.user.id).update(
                 title=title,
-                body=body,
-                last_update_date=timezone.now(),
-                publish_date=publish_date,
-                scheduled=scheduled,
+                content=content,
+                last_updated_at=timezone.now(),
+                publish_datetime=publish_datetime,
+                is_scheduled=is_scheduled,
             )
         elif request.POST.get("save"):
-            Post.objects.filter(id=post_id, post_owner_id=request.user.id).update(
+            Post.objects.filter(id=post_id, owner_id=request.user.id).update(
                 title=title,
-                body=body,
-                last_update_date=timezone.now(),
+                content=content,
+                last_updated_at=timezone.now(),
             )
 
         return redirect("/")

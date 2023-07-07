@@ -13,10 +13,10 @@ def update_posts():
     current_datetime = timezone.now()
     print("This is executed at:", timezone.now())
 
-    scheduled_posts = Post.objects.filter(scheduled=True)
+    scheduled_posts = Post.objects.filter(is_scheduled=True)
 
     for post in scheduled_posts:
-        if post.publish_date < current_datetime:
+        if post.publish_datetime < current_datetime:
             print("Updated post: ", post.id)
-            post.scheduled = False
+            post.is_scheduled = False
             post.save()

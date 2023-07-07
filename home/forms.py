@@ -6,7 +6,7 @@ from django.utils import timezone
 
 class PostBlog(forms.Form):
     title = forms.CharField(label="Title of the Blog", max_length=100)
-    body = forms.CharField(label="Body of the Blog", widget=forms.Textarea())
+    content = forms.CharField(label="content of the Blog", widget=forms.Textarea())
     scheduled_date = forms.DateField(
         label="publish at", widget=forms.SelectDateWidget(), initial=timezone.now()
     )
@@ -23,8 +23,8 @@ class EditPost(forms.Form):
     title = forms.CharField(
         label="Title of the Blog", max_length=100, initial="the title"
     )
-    body = forms.CharField(
-        label="Body of the Blog", widget=forms.Textarea(), initial="the body"
+    content = forms.CharField(
+        label="content of the Blog", widget=forms.Textarea(), initial="the content"
     )
     scheduled_date = forms.DateField(
         label="publish at", widget=forms.SelectDateWidget(), initial=timezone.now()

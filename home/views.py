@@ -10,7 +10,7 @@ from django.contrib.auth.models import User, auth
 
 def home(request):
     context = {
-        "titles": Post.objects.filter(publish_date__isnull=False, scheduled=False)
+        "titles": Post.objects.filter(publish_datetime__isnull=False, is_scheduled=False)
     }
     return render(request, "home/home.html", context)
 
@@ -19,10 +19,10 @@ def home(request):
 def post_page(request, post_id):
     form = PostComment(request.POST)
     post = Post.objects.get(id=post_id)
-    if post.publish_date is not None:
+    if post.publish_datetime is not None:
         context = {
             "post": post,
-            "author": User.objects.get(id=post.post_owner_id),
+            "author": User.objects.get(id=post.owner_id),
             "comments": Comment.objects.filter(post=post_id),
             "form": form,
         }
