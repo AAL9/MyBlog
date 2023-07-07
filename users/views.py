@@ -9,7 +9,7 @@ from posts.models import Post
 
 def register_user(request):
     if (not request.method == "POST") or None:
-        return render(request, "users_app/register.html")
+        return render(request, "users/register.html")
     else:
         first_name = request.POST["first_name"]
         last_name = request.POST["last_name"]
@@ -42,7 +42,7 @@ def register_user(request):
 
 def login_user(request):
     if (not request.method == "POST") or None:
-        return render(request, "users_app/login.html")
+        return render(request, "users/login.html")
     else:
         username = request.POST["username"]
         password = request.POST["password"]
@@ -110,7 +110,7 @@ def control_posts(request):
             post_owner_id=request.user.id, publish_date__isnull=True
         ),
     }
-    return render(request, "users_app/control_posts.html", context)
+    return render(request, "users/control_posts.html", context)
 
 
 def edit_post(request, post_id):
@@ -153,4 +153,4 @@ def edit_post(request, post_id):
             )
 
         return redirect("/")
-    return render(request, "users_app/edit_post.html", context)
+    return render(request, "users/edit_post.html", context)

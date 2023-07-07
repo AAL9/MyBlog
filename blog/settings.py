@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     "home",
     "posts",
     "comments",
-    "users_app",
+    "users",
     "django_rename_app",
 ]
 
