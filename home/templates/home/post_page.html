@@ -7,7 +7,7 @@
 <h1>Comments:</h1>
 {%for comment in comments%}
 <p>{{comment.comment}}</p>
-<p>{{comment.post_date}}</p>
+<p>{{comment.posted_at}}</p>
 <p>_____________________________</p>
 {%endfor%}
 <form action="{% url 'post_page' post.id %}" method="post">

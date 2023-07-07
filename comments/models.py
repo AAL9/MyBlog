@@ -7,4 +7,4 @@ from posts.models import Post
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment = models.TextField()
-    post_date = models.DateTimeField(auto_now_add=True)
+    posted_at = models.DateTimeField(auto_now_add=True)
