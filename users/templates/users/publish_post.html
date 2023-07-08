@@ -1,0 +1,13 @@
+{%extends 'main.html'%} 
+{%block content%}
+
+<div>
+    <h1>Publish a new post</h1>
+    <form action="{% url 'publish_post'%}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" name="save" value="SAVE TO DRAFTS">
+        <input type="submit" name="publish" value="PUBLISH">
+    </form>
+    </div>
+{%endblock content%}

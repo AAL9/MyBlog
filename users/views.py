@@ -5,6 +5,7 @@ from django.contrib.auth.models import User, auth
 from home.forms import PostBlog, EditPost
 from datetime import datetime
 from posts.models import Post
+from django.contrib.auth.decorators import login_required
 
 
 def register_user(request):
@@ -62,7 +63,8 @@ def logout_user(request):
     return redirect("/")
 
 
-def control_posts(request):
+@login_required
+def publish_post(request):
     if request.method == "POST":
         form = PostBlog(request.POST)
         if form.is_valid():
@@ -103,6 +105,13 @@ def control_posts(request):
         form = PostBlog()
     context = {
         "form": form,
+    }
+    return render(request, "users/publish_post.html", context)
+
+
+@login_required
+def control_posts(request):
+    context = {
         "published_user_posts": Post.objects.filter(
             owner_id=request.user.id, publish_datetime__isnull=False
         ),
@@ -113,6 +122,7 @@ def control_posts(request):
     return render(request, "users/control_posts.html", context)
 
 
+@login_required
 def edit_post(request, post_id):
     post = Post.objects.get(id=post_id)
     form = EditPost(

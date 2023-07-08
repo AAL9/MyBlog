@@ -1,13 +1,7 @@
 {%extends 'main.html'%} 
 {%block content%}
 <div>
-<h1>Publish a new post</h1>
-<form action="{% url 'control_posts'%}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" name="save" value="SAVE TO DRAFTS">
-    <input type="submit" name="publish" value="PUBLISH">
-</form>
+    <a href="{%url 'publish_post'%}">publish a new post</a>
 </div>
 <div>
 <h1>Edit published posts</h1>
