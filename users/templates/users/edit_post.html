@@ -4,7 +4,7 @@
 <form action="{% url 'edit_post' post.id %}" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" name="save" value="SAVE">
+    <input type="submit" name="save" value="SAVE TO DRAFTS">
     <input type="submit" name="publish" value="PUBLISH">
 </form>
 {%endblock content%}

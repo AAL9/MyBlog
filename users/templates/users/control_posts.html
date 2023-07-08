@@ -5,7 +5,7 @@
 <form action="{% url 'control_posts'%}" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" name="save" value="SAVE">
+    <input type="submit" name="save" value="SAVE TO DRAFTS">
     <input type="submit" name="publish" value="PUBLISH">
 </form>
 </div>
