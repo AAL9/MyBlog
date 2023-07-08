@@ -8,3 +8,4 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     comment = models.TextField()
     posted_at = models.DateTimeField(auto_now_add=True)
+    is_displayed = models.BooleanField(default=False)

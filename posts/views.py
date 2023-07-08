@@ -14,7 +14,7 @@ def display_post_page(request, post_id):
         context = {
             "post": post,
             "author": User.objects.get(id=post.owner_id),
-            "comments": Comment.objects.filter(post=post_id),
+            "comments": Comment.objects.filter(post=post_id, is_displayed=True),
             "form": form,
         }
 

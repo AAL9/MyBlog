@@ -1,8 +1,11 @@
 from django.utils import timezone
+from pytz import timezone as pytz_timezone
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User, auth
-from home.forms import PostBlog, EditPost
+import pytz
+from comments.models import Comment
+from home.forms import PostBlog, EditPost, CommentDisplayed
 from datetime import datetime
 from posts.models import Post
 from django.contrib.auth.decorators import login_required
@@ -125,34 +128,46 @@ def control_posts(request):
 @login_required
 def edit_post(request, post_id):
     post = Post.objects.get(id=post_id)
-    form = EditPost(
+    edit_post_form = EditPost(
         request.POST or None, initial={"title": post.title, "content": post.content}
     )
+    comments = Comment.objects.filter(post=post)
+    control_comments_form = CommentDisplayed(request.POST or None, comments=comments)
     context = {
         "post": post,
-        "form": form,
+        "edit_post_form": edit_post_form,
+        "control_comments_form": control_comments_form,
     }
-    if form.is_valid():
-        title = form.cleaned_data["title"]
-        content = form.cleaned_data["content"]
+
+    if control_comments_form.is_valid():
+        for comment in comments:
+            is_displayed = control_comments_form.cleaned_data.get(
+                f"comment_{comment.id}", False
+            )
+            comment.is_displayed = is_displayed
+            comment.save()
+
+    if edit_post_form.is_valid():
+        title = edit_post_form.cleaned_data["title"]
+        content = edit_post_form.cleaned_data["content"]
+
         publish_datetime = datetime.combine(
-            form.cleaned_data["scheduled_date"], form.cleaned_data["scheduled_time"]
+            edit_post_form.cleaned_data["scheduled_date"],
+            edit_post_form.cleaned_data["scheduled_time"],
         )
-        publish_datetime_aware = timezone.make_aware(
-            publish_datetime, timezone.get_current_timezone()
-        )
+        publish_datetime_utc = publish_datetime.astimezone(pytz.UTC)
         is_scheduled = False
-        if publish_datetime_aware > timezone.now():
+        if publish_datetime_utc > timezone.now():
             is_scheduled = True
         else:
-            publish_datetime = timezone.now()
-            is_scheduled = False
+            publish_datetime_utc = timezone.now()
+
         if request.POST.get("publish"):
             Post.objects.filter(id=post_id, owner_id=request.user.id).update(
                 title=title,
                 content=content,
                 last_updated_at=timezone.now(),
-                publish_datetime=publish_datetime,
+                publish_datetime=publish_datetime_utc,
                 is_scheduled=is_scheduled,
             )
         elif request.POST.get("save"):
@@ -163,4 +178,5 @@ def edit_post(request, post_id):
             )
 
         return redirect("/")
+
     return render(request, "users/edit_post.html", context)
