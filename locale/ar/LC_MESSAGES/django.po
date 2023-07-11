@@ -1600,7 +1600,7 @@ msgstr "نشر تدوينة جديدة"
 
 #: users/templates/users/control_posts.html:8
 msgid "Edit published posts"
-msgstr "عدل على مدونة منشورة"
+msgstr "تحرير تدوينات منشورة"
 
 #: users/templates/users/control_posts.html:16
 msgid "Edit drafts"
