@@ -1,13 +1,13 @@
 {%extends 'main.html'%} 
 {%block content%}
-
+{%load i18n%}
 <div>
-    <h1>Publish a new post</h1>
+    <h1>{% trans 'Publish a new post'%}</h1>
     <form action="{% url 'publish_post'%}" method="post">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" name="save" value="SAVE TO DRAFTS">
-        <input type="submit" name="publish" value="PUBLISH">
+        <input type="submit" name="save" value="{% trans 'SAVE TO DRAFTS'%}">
+        <input type="submit" name="publish" value="{% trans 'PUBLISH'%}">
     </form>
     </div>
 {%endblock content%}

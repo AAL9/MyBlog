@@ -1,12 +1,12 @@
 {%extends 'main.html'%} 
 {%block content%}
-
+{%load i18n%}
 <form action="{% url 'edit_post' post.id %}" method="post">
     {% csrf_token %}
     {{ edit_post_form }}
     {% csrf_token %}
     {{ control_comments_form }}
-    <input type="submit" name="save" value="SAVE TO DRAFTS">
-    <input type="submit" name="publish" value="PUBLISH">
+    <input type="submit" name="save" value="{% trans 'SAVE TO DRAFTS'%}">
+    <input type="submit" name="publish" value="{% trans 'PUBLISH'%}">
 </form>
 {%endblock content%}

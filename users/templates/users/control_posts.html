@@ -1,10 +1,11 @@
 {%extends 'main.html'%} 
 {%block content%}
+{%load i18n%}
 <div>
-    <a href="{%url 'publish_post'%}">publish a new post</a>
+    <a href="{%url 'publish_post'%}">{% trans 'publish a new post'%}</a>
 </div>
 <div>
-<h1>Edit published posts</h1>
+<h1>{% trans 'Edit published posts'%}</h1>
 {%for post in published_user_posts%}
 <li>
 <a href="{%url 'edit_post' post.id%}">{{post.title}}</a>
@@ -12,7 +13,7 @@
 {%endfor%}
 </div>
 <div>
-    <h1>Edit drafts</h1>
+    <h1>{% trans 'Edit drafts'%}</h1>
     {%for post in drafts%}
     <li>
     <a href="{%url 'edit_post' post.id%}">{{post.title}}</a>

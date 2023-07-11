@@ -1,21 +1,22 @@
 {%extends 'main.html'%} 
 {%block content%}
+{%load i18n%}
 <form action="" method="post" class="form-horizontal">
     {% csrf_token%}
     <div class="col-xs-8 col-xs-offset-4">
-        <h2>LOGIN</h2>
+        <h2>{% trans 'LOGIN'%}</h2>
     </div>
 
     <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" class="form-control" name="username" id="username" placeholder="Enter Username">
+        <label for="username">{% trans 'Username'%}</label>
+        <input type="text" class="form-control" name="username" id="username" placeholder="{% trans 'Enter Username'%}">
     </div>
     <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password">
+        <label for="password">{%trans 'Password'%}</label>
+        <input type="password" class="form-control" name="password" id="password" placeholder="{% trans 'Enter Password'%}">
     </div>
-    <button type="submit" class="btn btn-primary">LOGIN</button>
-    <a href="{% url 'register_user' %}">SIGN UP</a>
+    <button type="submit" class="btn btn-primary">{% trans 'LOGIN'%}</button>
+    <a href="{% url 'register_user' %}">{% trans 'SIGN UP'%}</a>
     <br />
     <div class="form-group">
         {% for message in messages %}

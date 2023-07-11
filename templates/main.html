@@ -1,24 +1,57 @@
+{%load i18n%}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" {% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
+    <title>
+      {% trans 'My Blog'%}
+    </title>
 </head>
 <body>
-  <h1>BLOG</h1>
+  <h1>
+    {% trans 'BLOG'%}
+  </h1>
+  <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+    {% get_current_language as LANGUAGE_CODE %}                                         
+    <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}">
+    {% if LANGUAGE_CODE == 'ar' %}
+        <button type='submit' name='language' value='en' class="icon solid fa-language">
+            <span class="label"></span>English
+        </button>
+    {% else %}
+        <button type='submit' name='language' value='ar' class="icon solid fa-language">
+            <span class="label"></span>عربي
+        </button>
+    {% endif %}
+</form>
     <table>
         <tr>
           <td>
-            <a href="/">HOME</a><br>
+            <a href="/">
+              {%trans 'HOME'%}
+            </a><br>
             {% if user.is_authenticated %}
-            <a href="{% url 'control_posts' %}">CONTROL POSTS</a> <br><br> 
-            <a href="" class="nav-link">Hi, {{user.first_name}}</a>
-            <a href="{% url 'logout_user' %}" class="nav-link">LOGOUT</a>
+            <a href="{% url 'control_posts' %}">
+              {%trans 'CONTROL POSTS'%}
+            </a> <br><br> 
+            <a href="" class="nav-link">
+              {%trans 'Hi'%}, {{user.first_name}}
+            </a><br>
+            <a href="{% url 'logout_user' %}" class="nav-link">
+              {%trans 'LOGOUT'%}
+            </a>
             {% else %}
-            <a href="{% url 'login_user' %}">LOGIN TO MAKE POSTS</a> <br><br>
-            <a href="{% url 'register_user' %}" class="nav-link">SIGN UP</a>
-            <a href="{% url 'login_user' %}" class="nav-link">LOGIN</a>
+            <a href="{% url 'login_user' %}">
+              {% trans 'LOGIN TO MAKE POSTS'%}
+            </a> <br><br>
+            <a href="{% url 'register_user' %}" class="nav-link">
+              {%trans 'SIGN UP'%}
+            </a><br>
+            <a href="{% url 'login_user' %}" class="nav-link">
+              {% trans 'LOGIN'%}
+            </a>
             {% endif %}
           </td>
         </tr>

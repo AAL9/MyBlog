@@ -1,13 +1,13 @@
 from django import forms
 from django.utils import timezone
 from pytz import timezone as pytz_timezone
-
+from django.utils.translation import gettext_lazy as _
 
 class PostBlog(forms.Form):
-    title = forms.CharField(label="Title of the post", max_length=100)
-    content = forms.CharField(label="Content of the post", widget=forms.Textarea())
+    title = forms.CharField(label=_("Title of the post"), max_length=100)
+    content = forms.CharField(label=_("Content of the post"), widget=forms.Textarea())
     scheduled_date = forms.DateField(
-        label="Publish at",
+        label=_("Publish at"),
         widget=forms.SelectDateWidget(),
         initial=timezone.localdate(),
     )
@@ -18,13 +18,13 @@ class PostBlog(forms.Form):
 
 class EditPost(forms.Form):
     title = forms.CharField(
-        label="Title of the post", max_length=100, initial="the title"
+        label=_("Title of the post"), max_length=100, initial="the title"
     )
     content = forms.CharField(
-        label="Content of the post", widget=forms.Textarea(), initial="the content"
+        label=_("Content of the post"), widget=forms.Textarea(), initial="the content"
     )
     scheduled_date = forms.DateField(
-        label="Publish at",
+        label=_("Publish at"),
         widget=forms.SelectDateWidget(),
         initial=timezone.localdate(),
     )
@@ -34,7 +34,7 @@ class EditPost(forms.Form):
 
 
 class PostComment(forms.Form):
-    comment = forms.CharField(label="Comment")
+    comment = forms.CharField(label=_("Comment"))
 
 
 class CommentDisplayed(forms.Form):
