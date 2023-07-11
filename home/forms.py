@@ -3,6 +3,7 @@ from django.utils import timezone
 from pytz import timezone as pytz_timezone
 from django.utils.translation import gettext_lazy as _
 
+
 class PostBlog(forms.Form):
     title = forms.CharField(label=_("Title of the post"), max_length=100)
     content = forms.CharField(label=_("Content of the post"), widget=forms.Textarea())
