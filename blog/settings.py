@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     "posts",
     "comments",
     "users",
-    "django_rename_app",
+    "django.contrib.humanize",
 ]
 
 MIDDLEWARE = [

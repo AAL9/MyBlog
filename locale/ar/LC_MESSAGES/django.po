@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 10:29+0000\n"
+"POT-Creation-Date: 2023-07-12 11:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1540,19 +1540,24 @@ msgstr "نشر في"
 msgid "Comment"
 msgstr "التعليقات:"
 
-#: posts/templates/posts/post_page.html:4
+#: posts/templates/posts/post_page.html:5
 msgid "Author:"
 msgstr "المؤلف:"
 
-#: posts/templates/posts/post_page.html:9
-msgid "Published at"
-msgstr "نشر في"
+#: posts/templates/posts/post_page.html:10
+msgid "Published"
+msgstr "نشر"
 
-#: posts/templates/posts/post_page.html:12
+#: posts/templates/posts/post_page.html:10
+#: posts/templates/posts/post_page.html:13
+msgid "ago"
+msgstr ""
+
+#: posts/templates/posts/post_page.html:13
 msgid "Last Update at"
 msgstr "اخر تحديث في"
 
-#: posts/templates/posts/post_page.html:14
+#: posts/templates/posts/post_page.html:15
 msgid "Comments:"
 msgstr "التعليقات:"
 
