@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-12 08:27+0000\n"
+"POT-Creation-Date: 2023-07-12 10:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1606,17 +1606,21 @@ msgstr "تحرير تدوينات منشورة"
 msgid "Edit drafts"
 msgstr "تحرير المسودات"
 
-#: users/templates/users/edit_post.html:9
+#: users/templates/users/edit_post.html:4
+msgid "Edit this post"
+msgstr "تحرير هذه المدونة"
+
+#: users/templates/users/edit_post.html:10
 #: users/templates/users/publish_post.html:11
 msgid "SAVE TO DRAFTS"
 msgstr "حفظ في المسودة"
 
-#: users/templates/users/edit_post.html:10
+#: users/templates/users/edit_post.html:11
 #: users/templates/users/publish_post.html:12
 msgid "PUBLISH"
 msgstr "نشر"
 
-#: users/templates/users/edit_post.html:12
+#: users/templates/users/edit_post.html:13
 msgid "control comments:"
 msgstr "تحرير التعليقات:"
 
