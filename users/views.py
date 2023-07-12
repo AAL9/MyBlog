@@ -68,44 +68,49 @@ def logout_user(request):
 
 @login_required
 def publish_post(request):
-    if request.method == "POST":
-        form = PostBlog(request.POST)
-        if form.is_valid():
-            title = form.cleaned_data["title"]
-            content = form.cleaned_data["content"]
-            publish_datetime = datetime.combine(
-                form.cleaned_data["scheduled_date"], form.cleaned_data["scheduled_time"]
-            )
-            publish_datetime_aware = timezone.make_aware(
-                publish_datetime, timezone.get_current_timezone()
-            )
-            is_scheduled = False
-            if publish_datetime_aware > timezone.now():
-                is_scheduled = True
-            else:
-                publish_datetime = timezone.now()
-                is_scheduled = False
+    timezone.activate(pytz.timezone("Asia/Riyadh"))
+    form = PostBlog(
+        request.POST or None,
+        initial={
+            "scheduled_date": timezone.localdate(),
+            "scheduled_time": timezone.localtime().time(),
+        },
+    )
+    if form.is_valid():
+        title = form.cleaned_data["title"]
+        content = form.cleaned_data["content"]
+        publish_datetime = datetime.combine(
+            form.cleaned_data["scheduled_date"],
+            form.cleaned_data["scheduled_time"],
+        )
+        publish_datetime = timezone.make_aware(
+            publish_datetime, timezone.get_current_timezone()
+        )
+        publish_datetime_utc = publish_datetime.astimezone(pytz.UTC)
+        is_scheduled = False
+        if publish_datetime_utc > timezone.now():
+            is_scheduled = True
+        else:
+            publish_datetime_utc = timezone.now()
 
-            if request.POST.get("publish"):
-                Post.objects.create(
-                    owner_id=request.user.id,
-                    title=title,
-                    content=content,
-                    last_updated_at=timezone.now(),
-                    publish_datetime=publish_datetime,
-                    is_scheduled=is_scheduled,
-                )
-            elif request.POST.get("save"):
-                Post.objects.create(
-                    owner_id=request.user.id,
-                    title=title,
-                    content=content,
-                    last_updated_at=timezone.now(),
-                    is_scheduled=is_scheduled,
-                )
-            return redirect("/")
-    else:
-        form = PostBlog()
+        if request.POST.get("publish"):
+            Post.objects.create(
+                owner_id=request.user.id,
+                title=title,
+                content=content,
+                last_updated_at=timezone.now(),
+                publish_datetime=publish_datetime_utc,
+                is_scheduled=is_scheduled,
+            )
+        elif request.POST.get("save"):
+            Post.objects.create(
+                owner_id=request.user.id,
+                title=title,
+                content=content,
+                last_updated_at=timezone.now(),
+                is_scheduled=is_scheduled,
+            )
+        return redirect("/")
     context = {
         "form": form,
     }
@@ -127,9 +132,16 @@ def control_posts(request):
 
 @login_required
 def edit_post(request, post_id):
+    timezone.activate(pytz.timezone("Asia/Riyadh"))
     post = Post.objects.get(id=post_id)
     edit_post_form = EditPost(
-        request.POST or None, initial={"title": post.title, "content": post.content}
+        request.POST or None,
+        initial={
+            "title": post.title,
+            "content": post.content,
+            "scheduled_date": timezone.localdate(),
+            "scheduled_time": timezone.localtime().time(),
+        },
     )
     comments = Comment.objects.filter(post=post)
     control_comments_form = CommentDisplayed(request.POST or None, comments=comments)
@@ -150,10 +162,12 @@ def edit_post(request, post_id):
     if edit_post_form.is_valid():
         title = edit_post_form.cleaned_data["title"]
         content = edit_post_form.cleaned_data["content"]
-
         publish_datetime = datetime.combine(
             edit_post_form.cleaned_data["scheduled_date"],
             edit_post_form.cleaned_data["scheduled_time"],
+        )
+        publish_datetime = timezone.make_aware(
+            publish_datetime, timezone.get_current_timezone()
         )
         publish_datetime_utc = publish_datetime.astimezone(pytz.UTC)
         is_scheduled = False

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-11 11:08+0000\n"
+"POT-Creation-Date: 2023-07-12 08:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1522,19 +1522,19 @@ msgstr ""
 msgid "Unable to connect to qpid with SASL mechanism %s"
 msgstr ""
 
-#: home/forms.py:7 home/forms.py:21
+#: home/forms.py:8 home/forms.py:22
 msgid "Title of the post"
 msgstr "عنوان المنشور"
 
-#: home/forms.py:8 home/forms.py:24
+#: home/forms.py:9 home/forms.py:25
 msgid "Content of the post"
 msgstr "محتوى المنشور"
 
-#: home/forms.py:10 home/forms.py:27
+#: home/forms.py:11 home/forms.py:28
 msgid "Publish at"
 msgstr "نشر في"
 
-#: home/forms.py:37
+#: home/forms.py:38
 #, fuzzy
 #| msgid "Comments:"
 msgid "Comment"
@@ -1607,14 +1607,18 @@ msgid "Edit drafts"
 msgstr "تحرير المسودات"
 
 #: users/templates/users/edit_post.html:9
-#: users/templates/users/publish_post.html:9
+#: users/templates/users/publish_post.html:11
 msgid "SAVE TO DRAFTS"
 msgstr "حفظ في المسودة"
 
 #: users/templates/users/edit_post.html:10
-#: users/templates/users/publish_post.html:10
+#: users/templates/users/publish_post.html:12
 msgid "PUBLISH"
 msgstr "نشر"
+
+#: users/templates/users/edit_post.html:12
+msgid "control comments:"
+msgstr "تحرير التعليقات:"
 
 #: users/templates/users/login.html:11 users/templates/users/register.html:13
 msgid "Username"

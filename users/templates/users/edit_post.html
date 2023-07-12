@@ -3,10 +3,15 @@
 {%load i18n%}
 <form action="{% url 'edit_post' post.id %}" method="post">
     {% csrf_token %}
+    <table>
     {{ edit_post_form }}
-    {% csrf_token %}
-    {{ control_comments_form }}
+    </table>
     <input type="submit" name="save" value="{% trans 'SAVE TO DRAFTS'%}">
     <input type="submit" name="publish" value="{% trans 'PUBLISH'%}">
+    
+    <h2>{% trans 'control comments:'%}</h2>
+    <table>
+    {{ control_comments_form }}
+    </table>
 </form>
 {%endblock content%}
