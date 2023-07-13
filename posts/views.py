@@ -8,7 +8,7 @@ from .models import Post
 
 
 def display_post_page(request, post_id):
-    form = PostComment(request.POST)
+    form = PostComment(request.POST or None)
     post = Post.objects.get(id=post_id)
     if post.publish_datetime is not None:
         context = {
